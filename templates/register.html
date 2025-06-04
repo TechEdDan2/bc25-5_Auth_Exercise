@@ -1,0 +1,35 @@
+{% extends 'base.html'%}
+
+{% block title %} Register {% endblock %}
+
+{% block content %}
+<h1 class="display-1">New User Registration</h1>
+
+<p class="lead">Register Below to Join our Feedback App</p>
+
+<!-- This starts a form that will send its data to the server using the POST method. -->
+<form method="POST">
+    <!-- Renders hidden fields required by Flask-WTF, such as the CSRF token for security. -->
+    {{form.hidden_tag()}}
+
+    <!-- Loops through each field in the form and renders it, except for hidden fields. -->
+    {% for field in form
+    if field.widget.input_type != 'hidden'%}
+
+    <p>
+        <!-- Displays the label for the field and the field itself. -->
+        {{ field.label}}
+        {{ field(class_='form-control') }}
+
+        <!-- Displays any errors associated with the field, if there are any. -->
+        {% for error in field.errors %}
+        <span class="text-danger">{{ error }}</span>
+        {% endfor %}
+    </p>
+
+    {% endfor %}
+
+    <button class="btn btn-success" type="submit">Register</button>
+</form>
+
+{% endblock %}
