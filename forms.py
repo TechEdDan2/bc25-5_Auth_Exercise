@@ -26,4 +26,5 @@ class FeedbackForm(FlaskForm):
     """ This for is used for creating posts """
 
     # Fields for the form
-    text = StringField("Feedback", validators=[InputRequired()])
+    title = StringField("Title", validators=[InputRequired(), Length(max=100)])
+    content = StringField("Feedback", validators=[InputRequired()])

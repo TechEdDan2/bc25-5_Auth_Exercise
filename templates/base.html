@@ -18,8 +18,9 @@
             <a href="/" class="navbar-brand text-light">Git / Give Feedback!</a>
             <ul class="nav navbar-nav flex-row float-right">
                 {% if session['user_id'] %}
+
                 <li class="nav-item me-3">
-                    <a href="" class="nav-link pr3 text-light"> Logout </a>
+                    <a href="/logout" class="nav-link pr3 text-light"> Logout </a>
                 </li>
 
                 {% else %}

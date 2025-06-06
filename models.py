@@ -50,3 +50,28 @@ class User(db.Model):
         if user and bcrypt.check_password_hash(user.password, password):
             return user
         return False
+
+
+class Feedback(db.Model):
+    __tablename__ = 'feedback'
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    title = db.Column(db.Text, nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    username = db.Column(db.String(20), db.ForeignKey('users.username'), nullable=False)
+
+    user = db.relationship('User', backref='feedbacks', foreign_keys=[user_id])
+
+    def __repr__(self):
+        """ Show Feedback """
+        return f"<Feedback {self.id} {self.title}>"
+    
+    def serialize(self):
+        """ Serialize Feedback """
+        return {
+            'id': self.id,
+            'title': self.title,
+            'content': self.content,
+            'user_id': self.user_id
+        }
