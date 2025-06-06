@@ -2,18 +2,16 @@
 
 A Flask application demonstrating user authentication, password hashing, and user profile management and nothing more. 
 
-## Table of contents
+## Table of Contents
 
 - [Overview](#overview)
   - [Features](#features)
   - [Screenshot](#screenshot)
-  - [Setup](#setup-instructions)
-  - [Links](#links)
-- [My process](#my-process)
-  - [Built with](#built-with)
-  - [What I learned](#what-i-learned)
-  - [Continued development](#continued-development)
-  - [Useful resources](#useful-resources)
+  - [Setup Instructions](#setup-instructions)
+- [My Process](#my-process)
+  - [File Structure](#file-structure)
+  - [Built With](#built-with)
+  - [Notes](#notes)
 - [Author](#author)
 
 ## Overview
@@ -27,6 +25,8 @@ For this exercise, I create a Flask Feedback application that lets users sign up
 - Session-based authentication
 - Feedback model (example of related data)
 - Secure routes (only logged-in users can access certain pages)
+
+### Screenshot
 
 ### Setup Instructions
 
@@ -61,7 +61,9 @@ For this exercise, I create a Flask Feedback application that lets users sign up
 6. **Visit the app**  
    Open [http://localhost:5000](http://localhost:5000) in your browser.
 
-## File Structure
+## My process
+
+### File Structure
 
 - `app.py` — Main Flask application and routes
 - `models.py` — SQLAlchemy models and authentication logic
@@ -69,8 +71,22 @@ For this exercise, I create a Flask Feedback application that lets users sign up
 - `templates/` — HTML templates
 - `requirements.txt` — Python dependencies
 
-## Notes
+### Built using
+ 
+- Python 3
+- Flask
+- Flask-Bcrypt
+- Flask-WTF
+- Flask-SQLAlchemy
+- PostgreSQL
+- Bootstrap 5
+
+### Notes
 
 - User passwords are securely hashed using Flask-Bcrypt.
 - Only logged-in users can view user profiles and secret pages.
 - Feedback model is included as an example of a related model.
+
+## Author
+
+- Frontend Mentor - [@TechEdDan2](https://www.frontendmentor.io/profile/TechEdDan2)

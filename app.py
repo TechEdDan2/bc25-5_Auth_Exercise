@@ -1,7 +1,7 @@
 """ Feedback app Exercise """
 from flask import Flask, jsonify, render_template, redirect, session, flash
-from models import connect_db, db, User
-from forms import LoginForm, RegForm
+from models import connect_db, db, User, Feedback
+from forms import LoginForm, RegForm, FeedbackForm
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///auth_exer_db'
@@ -91,6 +91,18 @@ def user_profile(username):
         return redirect('/login')
     
     return render_template('user_profile.html', user=user)
+
+@app.route('/feedback' , methods=['GET', 'POST'])
+def feedback_list():
+    """ Show all feedback """
+    # GET Logic
+    if 'user_id' not in session:
+        flash('You must be logged in to view this page.', 'danger')
+        return redirect('/login')
+    
+    form = FeedbackForm()
+    feedbacks = Feedback.query.all()
+    return render_template('feedback.html', feedbacks=feedbacks, form=form)
 
 @app.route('/logout')
 def logout_user():
