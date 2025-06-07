@@ -19,7 +19,10 @@ with app.app_context():
 @app.route('/')
 def index():
     """ Show the homepage """
-    return render_template('index.html')
+    user = None
+    if 'user_id' in session:
+        user = User.query.get(session['user_id'])
+    return render_template('index.html', user=user)
 
 @app.route('/register', methods=['GET', 'POST'])
 def registerUser():
@@ -42,7 +45,7 @@ def registerUser():
         db.session.commit()
         session['user_id'] = new_user.id
         flash('Welcome to the Feedback MicroBlog', 'success')
-        return redirect('/posts')
+        return redirect('/user/' + new_user.username)
     return render_template('register.html', form = form)
 
 @app.route('/login', methods=["GET", "POST"])
@@ -75,7 +78,7 @@ def secret_page():
     user = User.query.get(session['user_id'])
     return render_template('secret.html', user=user)
 
-@app.route('/user')
+# @app.route('/user')
 
 
 @app.route('/user/<username>')
@@ -102,7 +105,63 @@ def feedback_list():
     
     form = FeedbackForm()
     feedbacks = Feedback.query.all()
-    return render_template('feedback.html', feedbacks=feedbacks, form=form)
+    user = User.query.get(session['user_id'])
+    
+    # POST Logic
+    if form.validate_on_submit():
+        title = form.title.data
+        content = form.content.data
+        user_id = session['user_id']
+        username = User.query.get(user_id).username
+        
+        new_feedback = Feedback(title=title, content=content, user_id=user_id, username=username)
+        
+        db.session.add(new_feedback)
+        db.session.commit()
+        
+        flash('Feedback submitted successfully!', 'success')
+        return redirect('/feedback')
+    
+    
+    return render_template('feedback.html', feedbacks=feedbacks, form=form, user=user)
+
+@app.route('/feedback/<int:id>/delete', methods=['POST'])
+def delete_feedback(id):
+    """ Delete feedback by ID """
+    feedback = Feedback.query.get_or_404(id)
+    
+    if 'user_id' not in session or session['user_id'] != feedback.user_id:
+        flash('You do not have permission to delete this feedback.', 'danger')
+        return redirect('/feedback')
+    
+    db.session.delete(feedback)
+    db.session.commit()
+    
+    flash('Feedback deleted successfully!', 'success')
+    return redirect('/feedback')
+
+@app.route('/feedback/<int:id>/edit', methods=['GET', 'POST'])
+def edit_feedback(id):
+    """ Edit feedback by ID """
+    feedback = Feedback.query.get_or_404(id)
+    
+    if 'user_id' not in session or session['user_id'] != feedback.user_id:
+        flash('You do not have permission to edit this feedback.', 'danger')
+        return redirect('/feedback')
+    
+    user = User.query.get(session['user_id'])
+    form = FeedbackForm(obj=feedback)
+    
+    if form.validate_on_submit():
+        feedback.title = form.title.data
+        feedback.content = form.content.data
+        
+        db.session.commit()
+        
+        flash('Feedback updated successfully!', 'success')
+        return redirect('/feedback')
+    
+    return render_template('feedback_edit.html', form=form, feedback=feedback, user=user)
 
 @app.route('/logout')
 def logout_user():

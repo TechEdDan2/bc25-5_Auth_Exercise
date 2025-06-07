@@ -30,6 +30,24 @@
             <h5 class="card-title">{{ feedback.title }}</h5>
             <p class="card-text">{{ feedback.content }}</p>
             <p class="card-text"><small class="text-muted">Submitted by {{ feedback.user.username }}</small></p>
+        
+             <div class="d-flex gap-2">
+                 {% if session['user_id'] == feedback.user_id %}
+                 <form action="/feedback/{{feedback.id}}/edit">
+                    <input type="hidden" name="post_id" value="{{ feedback.id }}">
+                    <button class="btn btn-secondary" type="submit">Edit</button>
+                </form>
+                {% endif %}
+                 
+                {% if session['user_id'] == feedback.user_id %}
+                <form action="/feedback/{{feedback.id}}/delete" method="POST">
+                    <input type="hidden" name="post_id" value="{{ feedback.id }}">
+                    <button class="btn btn-danger" type="submit">Delete</button>
+                </form>
+                {% endif %}
+             </div>
+
+           
         </div>
     </div>
     {% endfor %}

@@ -13,6 +13,7 @@ A Flask application demonstrating user authentication, password hashing, and use
   - [Built With](#built-with)
   - [Notes](#notes)
 - [Author](#author)
+- [License](#license)
 
 ## Overview
 For this exercise, I create a Flask Feedback application that lets users sign up and log in to their own accounts. Once logged in, users can add feedback, edit their feedback, delete their feedback, and see a list of all feedback that they’ve given. Many of these routes should be protected, so that for example user1 can’t edit a piece of feedback that user2 created.
@@ -27,6 +28,7 @@ For this exercise, I create a Flask Feedback application that lets users sign up
 - Secure routes (only logged-in users can access certain pages)
 
 ### Screenshot
+![Screenshot of the Flask Feedback Auth Exercise](static/assets/images/screenshot.png)
 
 ### Setup Instructions
 
@@ -69,6 +71,7 @@ For this exercise, I create a Flask Feedback application that lets users sign up
 - `models.py` — SQLAlchemy models and authentication logic
 - `forms.py` — WTForms for registration and login
 - `templates/` — HTML templates
+- `static/images/` - Location of Screenshot
 - `requirements.txt` — Python dependencies
 
 ### Built using
@@ -90,3 +93,7 @@ For this exercise, I create a Flask Feedback application that lets users sign up
 ## Author
 
 - Frontend Mentor - [@TechEdDan2](https://www.frontendmentor.io/profile/TechEdDan2)
+
+## License
+
+This project is licensed under GNU General Public License (GPL) v3
