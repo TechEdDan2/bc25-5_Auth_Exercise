@@ -28,7 +28,7 @@ For this exercise, I create a Flask Feedback application that lets users sign up
 - Secure routes (only logged-in users can access certain pages)
 
 ### Screenshot
-![Screenshot of the Flask Feedback Auth Exercise](static/assets/images/screenshot.png)
+![Screenshot of the Flask Feedback Auth Exercise](/static/images/Screenshot.png)
 
 ### Setup Instructions
 
